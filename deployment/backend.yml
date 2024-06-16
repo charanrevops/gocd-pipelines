@@ -25,8 +25,18 @@ pipelines:
               tasks:
                 - exec:
                     arguments:
-                      - -l
-                    command: ls
+                      - -i
+                      - backend-dev.charanrdevops.online,
+                      - -e
+                      - ansible_user=ec2-user
+                      - -e
+                      - ansible_password=DevOps321
+                      - -e
+                      - env=dev
+                      - -e
+                      - role_name=backend
+                      - expense.yml
+                    command: ansible-playbook
 #                    run_if: passed
 
       - QA:
@@ -76,6 +86,16 @@ pipelines:
               tasks:
                 - exec:
                     arguments:
-                      - -l
-                    command: ls
+                      - -i
+                      - backend-prod.charanrdevops.online,
+                      - -e
+                      - ansible_user=ec2-user
+                      - -e
+                      - ansible_password=DevOps321
+                      - -e
+                      - env=prod
+                      - -e
+                      - role_name=backend
+                      - expense.yml
+                    command: ansible-playbook
                     run_if: passed
