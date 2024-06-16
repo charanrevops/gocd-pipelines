@@ -7,7 +7,7 @@ pipelines:
     display_order: -1
     materials:
       git-c121243:
-        git: https://github.com/charanrevops/expense -ansible
+        git: https://github.com/charanrevops/expense-ansible
         shallow_clone: false
         auto_update: true
         branch: main
