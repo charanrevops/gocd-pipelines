@@ -11,8 +11,8 @@ pipelines:
         shallow_clone: false
         auto_update: true
         branch: main
-#    secure_variables:
-#      ssh_password:  "AES:ZMfNW8/W1ZWCtKbDHpYEeA==:2eBQqTPVkyYJm1k14CQugQ=="
+    secure_variables:
+      ssh_password:  "AES:ZMfNW8/W1ZWCtKbDHpYEeA==:2eBQqTPVkyYJm1k14CQugQ=="
     stages:
       - DEV:
           fetch_materials: true
@@ -26,19 +26,20 @@ pipelines:
               timeout: 0
               tasks:
                 - exec:
-                    arguments:
-                      - -i
-                      - mysql-dev.charanrdevops.online,
-                      - -e
-                      - ansible_user=ec2-user
-                      - -e
-                      - ansible_password="AES:ZMfNW8/W1ZWCtKbDHpYEeA==:2eBQqTPVkyYJm1k14CQugQ=="
-                      - -e
-                      - env=dev
-                      - -e
-                      - role_name=mysql
-                      - expense.yml
-                    command: ansible-playbook
+#                    arguments:
+#                      - -i
+#                      - mysql-dev.charanrdevops.online,
+#                      - -e
+#                      - ansible_user=ec2-user
+#                      - -e
+#                      - ansible_password=${ssh_password}
+#                      - -e
+#                      - env=dev
+#                      - -e
+#                      - role_name=mysql
+#                      - expense.yml
+#                    command: ansible-playbook
+                    command: env
       #                    run_if: passed
 
       - QA:
