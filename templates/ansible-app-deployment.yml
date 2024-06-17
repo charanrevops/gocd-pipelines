@@ -42,7 +42,7 @@ pipelines:
             type: manual
           #            allow_only_on_success: false
           jobs:
-            test-j:
+            ansible:
               timeout: 0
               tasks:
                 - exec:
@@ -59,7 +59,7 @@ pipelines:
             type: manual
           #            allow_only_on_success: false
           jobs:
-            test-j:
+            ansible:
               timeout: 0
               tasks:
                 - exec:
@@ -78,7 +78,7 @@ pipelines:
             type: manual
           #            allow_only_on_success: false
           jobs:
-            test-j:
+            ansible:
               timeout: 0
               tasks:
                 - exec:
