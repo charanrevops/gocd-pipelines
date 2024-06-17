@@ -1,0 +1,101 @@
+format_version: 10
+pipelines:
+  mysql:
+    group: App-Deployments
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      git-c121243:
+        git: https://github.com/charanrevops/expense-ansible
+        shallow_clone: false
+        auto_update: true
+        branch: main
+    stages:
+      - DEV:
+          fetch_materials: true
+          #          keep_artifacts: false
+          #          clean_workspace: false
+          approval:
+            type: manual
+          #            allow_only_on_success: false
+          jobs:
+            ansible:
+              timeout: 0
+              tasks:
+                - exec:
+                    arguments:
+                      - -i
+                      - mysql-dev.charanrdevops.online,
+                      - -e
+                      - ansible_user=ec2-user
+                      - -e
+                      - ansible_password=DevOps321
+                      - -e
+                      - env=dev
+                      - -e
+                      - role_name=mysql
+                      - expense.yml
+                    command: ansible-playbook
+      #                    run_if: passed
+
+      - QA:
+          fetch_materials: true
+          #          keep_artifacts: false
+          #          clean_workspace: false
+          approval:
+            type: manual
+          #            allow_only_on_success: false
+          jobs:
+            test-j:
+              timeout: 0
+              tasks:
+                - exec:
+                    arguments:
+                      - -l
+                    command: ls
+                    run_if: passed
+
+      - STAGE:
+          fetch_materials: true
+          #          keep_artifacts: false
+          #          clean_workspace: false
+          approval:
+            type: manual
+          #            allow_only_on_success: false
+          jobs:
+            test-j:
+              timeout: 0
+              tasks:
+                - exec:
+                    arguments:
+                      - -l
+                    command: ls
+                    run_if: passed
+
+      - PROD:
+          fetch_materials: true
+          #          keep_artifacts: false
+          #          clean_workspace: false
+          approval:
+            type: manual
+          #            allow_only_on_success: false
+          jobs:
+            test-j:
+              timeout: 0
+              tasks:
+                - exec:
+                    arguments:
+                      - -i
+                      - mysql-prod.charanrdevops.online,
+                      - -e
+                      - ansible_user=ec2-user
+                      - -e
+                      - ansible_password=DevOps321
+                      - -e
+                      - env=prod
+                      - -e
+                      - role_name=mysql
+                      - expense.yml
+                    command: ansible-playbook
+                    run_if: passed
