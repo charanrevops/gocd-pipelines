@@ -16,24 +16,25 @@ pipelines:
     environment_variables:
       component: mysql
     stages:
-      - DEV:
-          fetch_materials: true
+    - DEV:
+        fetch_materials: true
+        environment_variables:
+          env: dev
+
           #          keep_artifacts: false
           #          clean_workspace: false
-          approval:
-            type: manual
+        approval:
+          type: manual
           #            allow_only_on_success: false
-          environment_variables:
-            env: dev
 
-          jobs:
-            ansible:
-              timeout: 0
-              tasks:
-                - exec:
-                    arguments:
-                      - run.sh
-                    command: bash
+        jobs:
+          ansible:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - run.sh
+                command: bash
 
       #                    run_if: passed
 
