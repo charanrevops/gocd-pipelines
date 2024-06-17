@@ -1,0 +1,88 @@
+format_version: 10
+pipelines:
+  ansible-app-deployment:
+    group: App-Deployments
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      git-c121243:
+        git: https://github.com/charanrevops/expense-ansible
+        shallow_clone: false
+        auto_update: true
+        branch: main
+    secure_variables:
+      ssh_password: "AES:ZMfNW8/W1ZWCtKbDHpYEeA==:2eBQqTPVkyYJm1k14CQugQ=="
+
+    stages:
+      - DEV:
+          fetch_materials: true
+          environment_variables:
+            env: dev
+          #          keep_artifacts: false
+          #          clean_workspace: false
+          approval:
+            type: manual
+          #            allow_only_on_success: false
+          jobs:
+            ansible:
+              timeout: 0
+              tasks:
+                - exec:
+                    arguments:
+                      - run.sh
+                    command: bash
+      #                    run_if: passed
+
+      - QA:
+          fetch_materials: true
+          #          keep_artifacts: false
+          #          clean_workspace: false
+          approval:
+            type: manual
+          #            allow_only_on_success: false
+          jobs:
+            test-j:
+              timeout: 0
+              tasks:
+                - exec:
+                    arguments:
+                      - -l
+                    command: ls
+                    run_if: passed
+
+      - STAGE:
+          fetch_materials: true
+          #          keep_artifacts: false
+          #          clean_workspace: false
+          approval:
+            type: manual
+          #            allow_only_on_success: false
+          jobs:
+            test-j:
+              timeout: 0
+              tasks:
+                - exec:
+                    arguments:
+                      - -l
+                    command: ls
+                    run_if: passed
+
+      - PROD:
+          fetch_materials: true
+          environment_variables:
+            env: prod
+          #          keep_artifacts: false
+          #          clean_workspace: false
+          approval:
+            type: manual
+          #            allow_only_on_success: false
+          jobs:
+            test-j:
+              timeout: 0
+              tasks:
+                - exec:
+                    arguments:
+                      - run.sh
+                    command: bash
+                    run_if: passed
