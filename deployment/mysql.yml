@@ -26,20 +26,20 @@ pipelines:
               timeout: 0
               tasks:
                 - exec:
-#                    arguments:
-#                      - -i
-#                      - mysql-dev.charanrdevops.online,
-#                      - -e
-#                      - ansible_user=ec2-user
-#                      - -e
-#                      - ansible_password=${ssh_password}
-#                      - -e
-#                      - env=dev
-#                      - -e
-#                      - role_name=mysql
-#                      - expense.yml
-#                    command: ansible-playbook
-                    command: env
+                    arguments:
+                      - -i
+                      - mysql-dev.charanrdevops.online,
+                      - -e
+                      - ansible_user=ec2-user
+                      - -e
+                      - ansible_password= "AES:ZMfNW8/W1ZWCtKbDHpYEeA==:2eBQqTPVkyYJm1k14CQugQ=="
+                      - -e
+                      - env=dev
+                      - -e
+                      - role_name=mysql
+                      - expense.yml
+                    command: ansible-playbook
+
       #                    run_if: passed
 
       - QA:
