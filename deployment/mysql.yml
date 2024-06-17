@@ -1,7 +1,5 @@
 format_version: 10
 pipelines:
-secure_variables:
-  ssh_password:  "AES:ZMfNW8/W1ZWCtKbDHpYEeA==:2eBQqTPVkyYJm1k14CQugQ=="
   mysql:
     group: App-Deployments
     label_template: ${COUNT}
@@ -34,7 +32,7 @@ secure_variables:
                       - -e
                       - ansible_user=ec2-user
                       - -e
-                      - ansible_password=${ssh_password}
+                      - ansible_password="AES:ZMfNW8/W1ZWCtKbDHpYEeA==:2eBQqTPVkyYJm1k14CQugQ=="
                       - -e
                       - env=dev
                       - -e
