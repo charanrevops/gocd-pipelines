@@ -13,6 +13,9 @@ pipelines:
         branch: main
     secure_variables:
       ssh_password:  "AES:ZMfNW8/W1ZWCtKbDHpYEeA==:2eBQqTPVkyYJm1k14CQugQ=="
+    environment_variables:
+      component: mysql
+
     stages:
       - DEV:
           fetch_materials: true
@@ -21,24 +24,17 @@ pipelines:
           approval:
             type: manual
           #            allow_only_on_success: false
+          environment_variables:
+            env: dev
+
           jobs:
             ansible:
               timeout: 0
               tasks:
                 - exec:
                     arguments:
-                      - -i
-                      - mysql-dev.charanrdevops.online,
-                      - -e
-                      - ansible_user=ec2-user
-                      - -e
-                      - ansible_password= ${ssh_password}
-                      - -e
-                      - env=dev
-                      - -e
-                      - role_name=mysql
-                      - expense.yml
-                    command: ansible-playbook
+                      - run.sh
+                    command: bash
 
       #                    run_if: passed
 
@@ -83,22 +79,16 @@ pipelines:
           approval:
             type: manual
           #            allow_only_on_success: false
+
+          environment_variables:
+            component:
+              env: prod
           jobs:
             test-j:
               timeout: 0
               tasks:
                 - exec:
                     arguments:
-                      - -i
-                      - mysql-prod.charanrdevops.online,
-                      - -e
-                      - ansible_user=ec2-user
-                      - -e
-                      - ansible_password=DevOps321
-                      - -e
-                      - env=prod
-                      - -e
-                      - role_name=mysql
-                      - expense.yml
-                    command: ansible-playbook
+                      - run.sh
+                    command: bash
                     run_if: passed
