@@ -38,57 +38,57 @@ pipelines:
 
       #                    run_if: passed
 
-      - QA:
-          fetch_materials: true
+    - QA:
+        fetch_materials: true
           #          keep_artifacts: false
           #          clean_workspace: false
-          approval:
-            type: manual
+        approval:
+          type: manual
           #            allow_only_on_success: false
-          jobs:
-            test-j:
-              timeout: 0
-              tasks:
-                - exec:
-                    arguments:
-                      - -l
-                    command: ls
-                    run_if: passed
+        jobs:
+          test-j:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - -l
+                command: ls
+                  run_if: passed
 
-      - STAGE:
-          fetch_materials: true
+    - STAGE:
+        fetch_materials: true
           #          keep_artifacts: false
           #          clean_workspace: false
-          approval:
-            type: manual
+        approval:
+          type: manual
           #            allow_only_on_success: false
-          jobs:
-            test-j:
-              timeout: 0
-              tasks:
-                - exec:
-                    arguments:
-                      - -l
-                    command: ls
-                    run_if: passed
+        jobs:
+          test-j:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - -l
+                command: ls
+                  run_if: passed
 
-      - PROD:
-          fetch_materials: true
+    - PROD:
+        fetch_materials: true
           #          keep_artifacts: false
           #          clean_workspace: false
-          approval:
-            type: manual
+        approval:
+          type: manual
           #            allow_only_on_success: false
 
-          environment_variables:
-            component:
-              env: prod
-          jobs:
-            test-j:
-              timeout: 0
-              tasks:
-                - exec:
-                    arguments:
-                      - run.sh
-                    command: bash
-                    run_if: passed
+        environment_variables:
+          component:
+          env: prod
+        jobs:
+          test-j:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - run.sh
+                command: bash
+                  run_if: passed
