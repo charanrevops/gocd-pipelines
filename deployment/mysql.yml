@@ -15,62 +15,63 @@ pipelines:
       ssh_password: "AES:ZMfNW8/W1ZWCtKbDHpYEeA==:2eBQqTPVkyYJm1k14CQugQ=="
     environment_variables:
       component: mysql
-    stages:
-      - DEV:
-          fetch_materials: true
-          environment_variables:
-            env: dev
-          approval:
-            type: manual
-          jobs:
-            ansible:
-              timeout: 0
-              tasks:
-                - exec:
-                    arguments:
-                      - run.sh
-                    command: bash
-
-      - QA:
-          fetch_materials: true
-          approval:
-            type: manual
-          jobs:
-            ansible:
-              timeout: 0
-              tasks:
-                - exec:
-                    arguments:
-                      - -l
-                    command: ls
-                    run_if: passed
-
-      - STAGE:
-          fetch_materials: true
-          approval:
-            type: manual
-          jobs:
-            ansible:
-              timeout: 0
-              tasks:
-                - exec:
-                    arguments:
-                      - -l
-                    command: ls
-                    run_if: passed
-
-      - PROD:
-          fetch_materials: true
-          environment_variables:
-            env: prod
-          approval:
-            type: manual
-          jobs:
-            ansible:
-              timeout: 0
-              tasks:
-                - exec:
-                    arguments:
-                      - run.sh
-                    command: bash
-                    run_if: passed
+    template: ansible-app-deployment
+#    stages:
+#      - DEV:
+#          fetch_materials: true
+#          environment_variables:
+#            env: dev
+#          approval:
+#            type: manual
+#          jobs:
+#            ansible:
+#              timeout: 0
+#              tasks:
+#                - exec:
+#                    arguments:
+#                      - run.sh
+#                    command: bash
+#
+#      - QA:
+#          fetch_materials: true
+#          approval:
+#            type: manual
+#          jobs:
+#            ansible:
+#              timeout: 0
+#              tasks:
+#                - exec:
+#                    arguments:
+#                      - -l
+#                    command: ls
+#                    run_if: passed
+#
+#      - STAGE:
+#          fetch_materials: true
+#          approval:
+#            type: manual
+#          jobs:
+#            ansible:
+#              timeout: 0
+#              tasks:
+#                - exec:
+#                    arguments:
+#                      - -l
+#                    command: ls
+#                    run_if: passed
+#
+#      - PROD:
+#          fetch_materials: true
+#          environment_variables:
+#            env: prod
+#          approval:
+#            type: manual
+#          jobs:
+#            ansible:
+#              timeout: 0
+#              tasks:
+#                - exec:
+#                    arguments:
+#                      - run.sh
+#                    command: bash
+#                    run_if: passed

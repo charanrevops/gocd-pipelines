@@ -15,75 +15,76 @@ pipelines:
       ssh_password: "AES:ZMfNW8/W1ZWCtKbDHpYEeA==:2eBQqTPVkyYJm1k14CQugQ=="
     environment_variables:
       component: frontend
-    stages:
-      - DEV:
-          fetch_materials: true
-          environment_variables:
-            env: dev
-          #          keep_artifacts: false
-          #          clean_workspace: false
-          approval:
-            type: manual
-          #            allow_only_on_success: false
-          jobs:
-            ansible:
-              timeout: 0
-              tasks:
-                - exec:
-                    arguments:
-                      - run.sh
-                    command: bash
-      #                    run_if: passed
-
-      - QA:
-          fetch_materials: true
-          #          keep_artifacts: false
-          #          clean_workspace: false
-          approval:
-            type: manual
-          #            allow_only_on_success: false
-          jobs:
-            test-j:
-              timeout: 0
-              tasks:
-                - exec:
-                    arguments:
-                      - -l
-                    command: ls
-                    run_if: passed
-
-      - STAGE:
-          fetch_materials: true
-          #          keep_artifacts: false
-          #          clean_workspace: false
-          approval:
-            type: manual
-          #            allow_only_on_success: false
-          jobs:
-            test-j:
-              timeout: 0
-              tasks:
-                - exec:
-                    arguments:
-                      - -l
-                    command: ls
-                    run_if: passed
-
-      - PROD:
-          fetch_materials: true
-          environment_variables:
-            env: prod
-          #          keep_artifacts: false
-          #          clean_workspace: false
-          approval:
-            type: manual
-          #            allow_only_on_success: false
-          jobs:
-            test-j:
-              timeout: 0
-              tasks:
-                - exec:
-                    arguments:
-                      - run.sh
-                    command: bash
-                    run_if: passed
+    template: ansible-app-deployment
+#    stages:
+#      - DEV:
+#          fetch_materials: true
+#          environment_variables:
+#            env: dev
+#          #          keep_artifacts: false
+#          #          clean_workspace: false
+#          approval:
+#            type: manual
+#          #            allow_only_on_success: false
+#          jobs:
+#            ansible:
+#              timeout: 0
+#              tasks:
+#                - exec:
+#                    arguments:
+#                      - run.sh
+#                    command: bash
+#      #                    run_if: passed
+#
+#      - QA:
+#          fetch_materials: true
+#          #          keep_artifacts: false
+#          #          clean_workspace: false
+#          approval:
+#            type: manual
+#          #            allow_only_on_success: false
+#          jobs:
+#            test-j:
+#              timeout: 0
+#              tasks:
+#                - exec:
+#                    arguments:
+#                      - -l
+#                    command: ls
+#                    run_if: passed
+#
+#      - STAGE:
+#          fetch_materials: true
+#          #          keep_artifacts: false
+#          #          clean_workspace: false
+#          approval:
+#            type: manual
+#          #            allow_only_on_success: false
+#          jobs:
+#            test-j:
+#              timeout: 0
+#              tasks:
+#                - exec:
+#                    arguments:
+#                      - -l
+#                    command: ls
+#                    run_if: passed
+#
+#      - PROD:
+#          fetch_materials: true
+#          environment_variables:
+#            env: prod
+#          #          keep_artifacts: false
+#          #          clean_workspace: false
+#          approval:
+#            type: manual
+#          #            allow_only_on_success: false
+#          jobs:
+#            test-j:
+#              timeout: 0
+#              tasks:
+#                - exec:
+#                    arguments:
+#                      - run.sh
+#                    command: bash
+#                    run_if: passed
