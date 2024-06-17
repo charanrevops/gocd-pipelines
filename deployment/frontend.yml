@@ -17,7 +17,7 @@ pipelines:
       - DEV:
           fetch_materials: true
           environment_variables:
-            component: dev
+            env: dev
           #          keep_artifacts: false
           #          clean_workspace: false
           approval:
@@ -70,7 +70,7 @@ pipelines:
       - PROD:
           fetch_materials: true
           environment_variables:
-            component: prod
+            env: prod
           #          keep_artifacts: false
           #          clean_workspace: false
           approval:
