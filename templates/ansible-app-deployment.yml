@@ -86,3 +86,4 @@ pipelines:
                       - run.sh
                     command: bash
                     run_if: passed
+
