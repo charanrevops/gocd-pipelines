@@ -13,9 +13,13 @@ pipelines:
         branch: main
     secure_variables:
       ssh_password: "AES:ZMfNW8/W1ZWCtKbDHpYEeA==:2eBQqTPVkyYJm1k14CQugQ=="
+    environment_variables:
+      component: mysql
     stages:
       - DEV:
           fetch_materials: true
+          environment_variables:
+            env: dev
           approval:
             type: manual
           jobs:
@@ -57,6 +61,8 @@ pipelines:
 
       - PROD:
           fetch_materials: true
+          environment_variables:
+            env: prod
           approval:
             type: manual
           jobs:
